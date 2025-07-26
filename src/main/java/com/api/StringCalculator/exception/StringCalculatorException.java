@@ -1,19 +1,21 @@
 package com.api.StringCalculator.exception;
 
 import com.api.StringCalculator.constant.ErrorType;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
-public class StringCalculatorException extends RuntimeException  {
+public class StringCalculatorException extends RuntimeException {
     private final List<CalculatorError> errors;
 
     public StringCalculatorException(List<CalculatorError> errors) {
         this.errors = errors;
+    }
+
+    public List<CalculatorError> getErrors() {
+        return errors;
     }
 
     public String format() {
