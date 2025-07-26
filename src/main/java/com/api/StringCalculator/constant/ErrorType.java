@@ -1,6 +1,9 @@
 package com.api.StringCalculator.constant;
 
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorType {
 
     EMPTY_VALUE("Value cannot be empty"),
@@ -14,7 +17,4 @@ public enum ErrorType {
         this.defaultMessage = defaultMessage;
     }
 
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
 }
