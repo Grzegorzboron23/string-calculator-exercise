@@ -1,53 +1,71 @@
-Please fork this repository to do the exercise 🙂
+# 🧮 String Calculator
 
-# String calculator
+A simple Spring Boot REST API implementing a string-based calculator as described in the **SmartBear** recruitment task.
 
-Create a simple calculator that takes a String and returns a integer
+---
 
-Signature (pseudo code):
+## ✅ Implemented Requirements
 
-```java
-int Add(string numbers)
+- [x] Supports up to 2 or more numbers separated by commas
+- [x] Returns `0` for empty input (`""`)
+- [x] Handles an unknown number of inputs
+- [x] Accepts newline characters as delimiters (`1\n2,3` → `6`)
+- [x] Custom delimiters using the `//[delimiter]\n[numbers]` syntax
+  - Examples: `//;\n1;2`, `//|\n1|2|3`
+- [x] Throws an error if input ends with a delimiter (e.g. `"1,2,"`)
+- [x] Throws an error for invalid delimiters (`//|\n1|2,3`)
+  - Returns message: `"'|’ expected but ‘,’ found at position 3."`
+- [x] Validates negative numbers
+  - Example: `"1,-2"` → `"Negative number(s) not allowed: -2"`
+  - Multiple negatives → `"Negative number(s) not allowed: -4, -9"`
+- [x] Supports multiple errors in a single response
+- [x] Ignores numbers greater than 1000 (e.g. `"2,1001"` → `2`)
+- [x] Logs all exceptions (with stack traces) to file `logs/errors.log`
+- [x] Integrated Swagger UI for easy API testing
+
+---
+
+## ▶️ How to Run
+
+```bash
+mvn spring-boot:run
 ```
 
-## Requirements
-1.  The method can take up to two numbers, separated by commas, and will return their sum as a result. So the inputs can be: “”, “1”, “1,2”. For an empty string, it will return 0.
-2.  Allow the add method to handle an unknown number of arguments
-3.  Allow the add method to handle newlines as separators, instead of comas
+App runs on port `8080` by default.
 
-    “1,2\n3” should return “6”
-    “2,\n3” is invalid, but no need to clarify it with the program
+#### ➕ Calculator Endpoint
 
-4.  Add validation to not to allow a separator at the end
+```
+GET http://localhost:8080/api/calculate?input=1,2,3
+```
+---
 
-    For example “1,2,” should return an error (or throw an exception)
+## 🧪 Tests
 
-5.  Allow the add method to handle different delimiters
+Includes full test coverage:
 
-    To change the delimiter, the beginning of the input will contain a separate line that looks like this:
+- `CalculatorImplTest` – unit tests for calculator logic
+- `CalculatorControllerTest` – unit tests for REST controller
+- `GlobalExceptionHandlerTest` – tests for exception handling
+- `CalculatorIntegrationTest` – integration tests over HTTP
 
-    `//[delimiter]\n[numbers]`
+In addition to automated tests, the API was manually tested using **Postman** to verify behavior with various input scenarios and edge cases.
 
-    - “//;\n1;3” should return “4”
-    - “//|\n1|2|3” should return “6”
-    - “//sep\n2sep5” should return “7”
-    - “//|\n1|2,3” is invalid and should return an error (or throw an exception) with the message “‘|’ expected but ‘,’ found at position 3.”
+To run tests:
 
-6.  Calling add with negative numbers will return the message “Negative number(s) not allowed: <negativeNumbers>”
+```bash
+mvn test
+```
 
-    “1,-2” is invalid and should return the message “Negative number(s) not allowed: -2”
-    “2,-4,-9” is invalid and should return the message “Negative number(s) not allowed: -4, -9”
+---
 
-7.  Calling add with multiple errors will return all error messages separated by newlines.
+## 🛠️ Tech Stack
 
-    “//|\n1|2,-3” is invalid and return the message “Negative number(s) not allowed: -3\n’|’ expected but ‘,’ found at position 3.”
+- Java 21
+- Spring Boot 3.5.4
+- JUnit 5, Mockito
+- SLF4J + Logback
 
-8.  Numbers bigger than 1000 should be ignored, so adding 2 + 1001 = 2
+---
 
-
-## What we are going to look at
-
-1.  Code is tested
-2.  Code is clean and readable
-3.  Commits are small
-4.  Calculator works as intended
+> 🔍 Note: This project was created as part of the **SmartBear** recruitment process.
