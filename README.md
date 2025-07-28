@@ -49,6 +49,8 @@ Includes full test coverage:
 - `GlobalExceptionHandlerTest` – tests for exception handling
 - `CalculatorIntegrationTest` – integration tests over HTTP
 
+In addition to automated tests, the API was manually tested using **Postman** to verify behavior with various input scenarios and edge cases.
+
 To run tests:
 
 ```bash
