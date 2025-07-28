@@ -15,7 +15,7 @@ public class CalculatorController {
     }
 
     @GetMapping("/api/calculate")
-    public Integer calculate(@RequestParam String input){
+    public Integer calculate(@RequestParam(required = false) String input){
         return calculator.add(input);
     }
 }

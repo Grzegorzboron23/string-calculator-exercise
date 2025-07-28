@@ -5,8 +5,8 @@ import com.api.StringCalculator.exception.CalculatorError;
 import com.api.StringCalculator.exception.StringCalculatorException;
 import com.api.StringCalculator.model.DelimiterData;
 import com.api.StringCalculator.service.Calculator;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class CalculatorImpl implements Calculator {
     public Integer add(String input) throws StringCalculatorException {
         List<CalculatorError> errors = new ArrayList<>();
 
-        if (!StringUtils.hasText(input)) {
+        if (StringUtils.isBlank(input)) {
             return 0;
         }
 
