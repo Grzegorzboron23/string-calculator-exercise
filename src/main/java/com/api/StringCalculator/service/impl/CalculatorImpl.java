@@ -22,22 +22,6 @@ public class CalculatorImpl implements Calculator {
     private static final String DEFAULT_SEPARATOR = ",";
     private static final String CUSTOM_SEPARATOR_PREFIX = "//";
 
-    public static void main(String[] args) {
-        CalculatorImpl calculator = new CalculatorImpl();
-
-        try {
-            System.out.println("//;\n1;3 → " + calculator.add("//;\n1;3")); // 4
-            System.out.println("//|\n1|2|3 → " + calculator.add("//|\n1|2|3")); // 6
-            System.out.println("//sep\n2sep5 → " + calculator.add("//sep\n2sep5")); // 7
-            System.out.println("//|\n1|2,3 → " + calculator.add("//|\n1|2,3"));
-        } catch (StringCalculatorException e) {
-            System.out.println(e.getErrors());
-            System.out.println(e.getSpecialError());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public Integer add(String input) throws StringCalculatorException {
         if (StringUtils.isBlank(input)) {
@@ -45,6 +29,7 @@ public class CalculatorImpl implements Calculator {
         }
 
         List<CalculatorError> errors = new ArrayList<>();
+        collectNegativeNumbers(input, errors);
 
         DelimiterData delimiter = getDelimiterData(input, errors);
         String numbers = extractNumbers(input);
@@ -78,7 +63,6 @@ public class CalculatorImpl implements Calculator {
         try {
             int number = Integer.parseInt(token);
             if (number < 0) {
-                errors.add(new CalculatorError(ErrorType.NEGATIVE_NUMBER, String.valueOf(number)));
                 return Optional.empty();
             }
             if (number > 1000) {
@@ -98,7 +82,6 @@ public class CalculatorImpl implements Calculator {
 
         int commaIndex = input.indexOf(',');
         if (commaIndex > 0) {
-            collectNegativeNumbers(input, errors);
             throw new StringCalculatorException(errors, new SpecialDelimeterException(input.substring(2, 3), ",", input.indexOf(',')));
         }
 
