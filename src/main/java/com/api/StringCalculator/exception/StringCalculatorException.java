@@ -10,11 +10,20 @@ import java.util.Map;
 
 @Getter
 public class StringCalculatorException extends RuntimeException {
+
     private final List<CalculatorError> errors;
+    private SpecialDelimeterException specialError;
+
 
     public StringCalculatorException(List<CalculatorError> errors) {
         this.errors = errors;
     }
+
+    public StringCalculatorException(List<CalculatorError> errors, SpecialDelimeterException specialError) {
+        this.errors = errors;
+        this.specialError = specialError;
+    }
+
 
     public String format() {
         Map<ErrorType, List<String>> grouped = new LinkedHashMap<>();
@@ -29,6 +38,12 @@ public class StringCalculatorException extends RuntimeException {
                     .append(String.join(", ", entry.getValue()))
                     .append("\n");
         }
+
+        sb.append(specialError != null ? buildSpecialMessage(specialError) : "");
         return sb.toString().trim();
+    }
+
+    private String buildSpecialMessage(SpecialDelimeterException error) {
+        return error.expectedChar() + "  expected but " + " " + error.wrongChar() + " found at position " + error.index();
     }
 }

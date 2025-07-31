@@ -34,7 +34,7 @@ public class CalculatorIntegrationTest {
                         .param("input", "1,-2"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Validation error"))
-                .andExpect(jsonPath("$.details").value("Negative numbers are not allowed: -2"));
+                .andExpect(jsonPath("$.details").value("Negative number(s) not allowed: -2"));
     }
 
     @Test
