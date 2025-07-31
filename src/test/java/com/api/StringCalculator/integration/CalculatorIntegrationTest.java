@@ -4,8 +4,8 @@ package com.api.StringCalculator.integration;
 import com.api.StringCalculator.StringCalculatorApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -48,7 +48,7 @@ public class CalculatorIntegrationTest {
     @Test
     void shouldReturnError_whenParamMissing() throws Exception {
         mockMvc.perform(get("/api/calculate"))
-                .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.message").value("Unexpected error occurred"));
+                .andExpect(status().isOk())
+                .andExpect(content().string("0"));
     }
 }

@@ -22,11 +22,11 @@ public class CalculatorImpl implements Calculator {
 
     @Override
     public Integer add(String input) throws StringCalculatorException {
-        List<CalculatorError> errors = new ArrayList<>();
-
         if (StringUtils.isBlank(input)) {
             return 0;
         }
+
+        List<CalculatorError> errors = new ArrayList<>();
 
         DelimiterData delimiter = getDelimiterData(input);
         String numbers = extractNumbers(input);
