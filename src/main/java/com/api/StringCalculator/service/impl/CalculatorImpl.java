@@ -2,7 +2,7 @@ package com.api.StringCalculator.service.impl;
 
 import com.api.StringCalculator.constant.ErrorType;
 import com.api.StringCalculator.exception.CalculatorError;
-import com.api.StringCalculator.exception.SpecialDelimeterException;
+import com.api.StringCalculator.exception.SpecialDelimiterException;
 import com.api.StringCalculator.exception.StringCalculatorException;
 import com.api.StringCalculator.model.DelimiterData;
 import com.api.StringCalculator.service.Calculator;
@@ -82,7 +82,7 @@ public class CalculatorImpl implements Calculator {
 
         int commaIndex = input.indexOf(',');
         if (commaIndex > 0) {
-            throw new StringCalculatorException(errors, new SpecialDelimeterException(input.substring(2, 3), ",", input.indexOf(',')));
+            throw new StringCalculatorException(errors, new SpecialDelimiterException(input.substring(2, 3), ",", input.indexOf(',')));
         }
 
         String literal = input.substring(2, input.indexOf('\n'));

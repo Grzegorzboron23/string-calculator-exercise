@@ -12,14 +12,14 @@ import java.util.Map;
 public class StringCalculatorException extends RuntimeException {
 
     private final List<CalculatorError> errors;
-    private SpecialDelimeterException specialError;
+    private SpecialDelimiterException specialError;
 
 
     public StringCalculatorException(List<CalculatorError> errors) {
         this.errors = errors;
     }
 
-    public StringCalculatorException(List<CalculatorError> errors, SpecialDelimeterException specialError) {
+    public StringCalculatorException(List<CalculatorError> errors, SpecialDelimiterException specialError) {
         this.errors = errors;
         this.specialError = specialError;
     }
@@ -43,7 +43,7 @@ public class StringCalculatorException extends RuntimeException {
         return sb.toString().trim();
     }
 
-    private String buildSpecialMessage(SpecialDelimeterException error) {
+    private String buildSpecialMessage(SpecialDelimiterException error) {
         return error.expectedChar() + "  expected but " + " " + error.wrongChar() + " found at position " + error.index();
     }
 }
